@@ -19,22 +19,22 @@ async function connectWallet() {
 }
 
 async function switchToCrossFiNetwork() {
-  const crossFiTestnet = {
-    chainId: "0x103D", // Chain ID for CrossFi Testnet (decimal 4157 converted to hex)
-    chainName: "CrossFi Testnet",
-    rpcUrls: ["https://rpc.testnet.ms/"], // Public RPC URL for CrossFi Testnet
+  const ancient8Testnet = {
+    chainId: "0x1AD1BA8", // Chain ID for CrossFi Testnet (decimal 4157 converted to hex)
+    chainName: "Ancient8 Testnet",
+    rpcUrls: ["https://rpcv2-testnet.ancient8.gg/"], // Public RPC URL for CrossFi Testnet
     nativeCurrency: {
-      name: "XFI",
-      symbol: "XFI",
+      name: "ETH",
+      symbol: "ETH",
       decimals: 18,
     },
-    blockExplorerUrls: ["https://test.xfiscan.com/"],
+    blockExplorerUrls: ["https://scanv2-testnet.ancient8.gg/"],
   };
 
   try {
     await window.ethereum.request({
       method: "wallet_addEthereumChain",
-      params: [crossFiTestnet],
+      params: [ancient8Testnet],
     });
     console.log("Switched to CrossFi Testnet");
   } catch (error) {
