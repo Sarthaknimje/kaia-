@@ -1,8 +1,8 @@
 async function connectWallet() {
   if (typeof window.ethereum !== "undefined") {
-    console.log("MetaMask is installed!");
+    console.log("Ethereum-compatible wallet detected!");
   } else {
-    alert("MetaMask is not installed. Please install it to use this app.");
+    alert("No Ethereum-compatible wallet found. Please install a wallet like Kaia Wallet to use this app.");
     return;
   }
 
@@ -11,34 +11,34 @@ async function connectWallet() {
       method: "eth_requestAccounts",
     });
     console.log("Connected account:", accounts[0]);
-    switchToCrossFiNetwork();
+    switchToKairosTestnet();
     updateWalletButton(accounts[0]);
   } catch (error) {
-    console.error("User rejected the request.");
+    console.error("User rejected the connection request:", error);
   }
 }
 
-async function switchToCrossFiNetwork() {
-  const ancient8Testnet = {
-    chainId: "0x1AD1BA8", // Chain ID for CrossFi Testnet (decimal 4157 converted to hex)
-    chainName: "Ancient8 Testnet",
-    rpcUrls: ["https://rpcv2-testnet.ancient8.gg/"], // Public RPC URL for CrossFi Testnet
+async function switchToKairosTestnet() {
+  const kairosTestnet = {
+    chainId: "0x3E9", // 1001 in hexadecimal
+    chainName: "Kairos Testnet",
+    rpcUrls: ["https://public-en-kairos.node.kaia.io"], // RPC URL for Kairos Testnet
     nativeCurrency: {
-      name: "ETH",
-      symbol: "ETH",
+      name: "KAIA",
+      symbol: "KAIA", // Symbol for the native currency
       decimals: 18,
     },
-    blockExplorerUrls: ["https://scanv2-testnet.ancient8.gg/"],
+    blockExplorerUrls: ["https://kairos.kaiascan.io"], // Block explorer URL for Kairos Testnet
   };
 
   try {
     await window.ethereum.request({
       method: "wallet_addEthereumChain",
-      params: [ancient8Testnet],
+      params: [kairosTestnet],
     });
-    console.log("Switched to CrossFi Testnet");
+    console.log("Switched to Kairos Testnet");
   } catch (error) {
-    console.error("Failed to switch to CrossFi Testnet:", error);
+    console.error("Failed to switch to Kairos Testnet:", error);
   }
 }
 
